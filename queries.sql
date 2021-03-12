@@ -6,14 +6,14 @@ employees.first_name as "First Name",
 employees.sex as "Gender",
 salaries.salary as "Annual Salary"
 from employees
-inner join salaries on
+left join salaries on
 employees.emp_no = salaries.emp_no;
 
 -- Query #2:  query for first name, last name, and hire date for employees hired in 1986
 select first_name as "First Name",
 last_name as "Last Name",
 hire_date as "Date of Hire"
-from employees where hire_date >= '1986-01-01 00:00:00' and hire_date < '1987-01-01 00:00:00';
+from employees where hire_date >= '1986-01-01' and hire_date < '1987-01-01';
 
 -- Query #3:  join departments, department manager, and employees tables and query for manager of each department
 -- and list department number, department name, employee number, last name, and first name
@@ -63,11 +63,11 @@ employees.first_name as "First Name"
 from departments
 inner join dept_emp on dept_emp.dept_no = departments.dept_no
 inner join employees on dept_emp.emp_no = employees.emp_no
-where departments.dept_name = 'Sales' or departments.dept_name = 'Development';
+where departments.dept_name in ('Sales','Development');
 
 -- Query #8:  query for the count of unique employee last names and list in descending order
-select count(last_name) as "Number of People",
-last_name as "Employee Last Name"
+select last_name as "Employee Last Name",
+count(last_name) as "Number of People"
 from employees
 group by last_name
 order by "Number of People" desc;
